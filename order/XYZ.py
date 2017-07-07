@@ -1,4 +1,5 @@
 ###############################################################################
+# -*- coding: utf-8 -*-
 # Order: A tool to characterize the local structure of liquid water 
 #        by geometric order parameters
 # 
@@ -6,12 +7,14 @@
 # 
 # Released under the MIT MIT License
 ###############################################################################
+
 """XYZ trajectory reader
 ==============================================================
 """
 
 from __future__ import print_function, division
 import six
+from six.moves import range
 
 
 import numpy as np
@@ -25,9 +28,9 @@ class XYZLoader(object):
         self.offsets = []
         self.n_atoms = self._n_atoms()
         self.n_frames = self._n_frames()
-        self.box_size = np.empty([self.n_atoms, 3], dtype=np.float)
+        self.box_size = np.empty([self.n_frames, 3], dtype=np.float)
         self.atom_names = np.chararray([self.n_frames, self.n_atoms, 1], itemsize=3)
-        self.atom_coords = np.empty([self.n_frames, self.n_atoms, 3], dtype=np.float)
+        self.coords = np.empty([self.n_frames, self.n_atoms, 3], dtype=np.float)
         self.read_all_frames()
     
     def close(self):
@@ -65,7 +68,7 @@ class XYZLoader(object):
             for i in range(self.n_atoms):
                 line = f.readline().split()
                 self.atom_names[frame][i] = line[0]
-                self.atom_coords[frame][i] = \
+                self.coords[frame][i] = \
                 np.array(map(float, line[1:4]), dtype=np.float)
         
         except (ValueError, IndexError) as err:
@@ -93,4 +96,4 @@ class XYZLoader(object):
         """read all frames of XYZ trajectory"""
         for frame in range(self.n_frames):
             self.xyzfile.seek(self.offsets[frame])
-            self.read_next_frame(frame)
+            self.read_next_frame(frame)                                                                
