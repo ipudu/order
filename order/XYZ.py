@@ -5,7 +5,7 @@
 # 
 # Authors: Pu Du
 # 
-# Released under the MIT MIT License
+# Released under the MIT License
 ###############################################################################
 
 """XYZ trajectory reader
