@@ -6,6 +6,9 @@
 # 
 # Released under the MIT MIT License
 ###############################################################################
+"""XYZ trajectory reader
+==============================================================
+"""
 
 from __future__ import print_function, division
 import six
@@ -19,10 +22,11 @@ class XYZLoader(object):
     def __init__(self, filename):
         self.filename = filename
         self.xyzfile = open(self.filename, 'r')
-        self.n_atoms = self.n_atoms()
-        self.n_frames = self.n_frames()
-        self.box_size = self.box_size()
-        self.atom_names = np.empty([self.n_frames, self.n_atoms, 1], dtype='|S2')
+        self.offsets = []
+        self.n_atoms = self._n_atoms()
+        self.n_frames = self._n_frames()
+        self.box_size = np.empty([self.n_atoms, 3], dtype=np.float)
+        self.atom_names = np.chararray([self.n_frames, self.n_atoms, 1], itemsize=3)
         self.atom_coords = np.empty([self.n_frames, self.n_atoms, 3], dtype=np.float)
         self.read_all_frames()
     
@@ -30,19 +34,19 @@ class XYZLoader(object):
         """close XYZ file if it was open"""
         if self.xyzfile is None:
             return
-        self.xyzfile()
+        self.xyzfile.close()
         self.xyzfile = None
-
-      def __del__(self):
+    
+    def __del__(self):
         self.close()
-        
-    def n_atoms(self):
+
+    def _n_atoms(self):
         """number of atoms in each frame"""
         with open(self.filename, 'r') as f:
             n = f.readline()
         return int(n)
     
-    def n_frames(self):
+    def _n_frames(self):
         """number of frames in XYZ trajectory"""
         try:
             return self.read_n_frames()
@@ -54,12 +58,15 @@ class XYZLoader(object):
         f = self.xyzfile
         try:
             f.readline()
-            f.readline()
+            #read box size of each frame
+            box = f.readline().split()
+            self.box_size[frame] = np.array(map(float, box), dtype=np.float)
+            
             for i in range(self.n_atoms):
                 line = f.readline().split()
                 self.atom_names[frame][i] = line[0]
                 self.atom_coords[frame][i] = \
-                np.array(map(float, lineInfo[1:4]), dtype=np.float)
+                np.array(map(float, line[1:4]), dtype=np.float)
         
         except (ValueError, IndexError) as err:
             raise EOFError(err)
@@ -87,6 +94,3 @@ class XYZLoader(object):
         for frame in range(self.n_frames):
             self.xyzfile.seek(self.offsets[frame])
             self.read_next_frame(frame)
-
-    
-
