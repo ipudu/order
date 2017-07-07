@@ -15,6 +15,7 @@
 from __future__ import print_function, division
 import six
 from six.moves import range
+from . import util
 
 
 import numpy as np
@@ -23,6 +24,7 @@ import numpy as np
 class XYZLoader(object):
 
     def __init__(self, filename):
+        util.output_welcome()
         self.filename = filename
         self.xyzfile = open(self.filename, 'r')
         self.offsets = []
@@ -32,6 +34,8 @@ class XYZLoader(object):
         self.atom_names = np.chararray([self.n_frames, self.n_atoms, 1], itemsize=3)
         self.coords = np.empty([self.n_frames, self.n_atoms, 3], dtype=np.float)
         self.read_all_frames()
+        util.output_system_info(self.filename, self.n_atoms, self.n_frames)
+
     
     def close(self):
         """close XYZ file if it was open"""
@@ -89,7 +93,7 @@ class XYZLoader(object):
                 counter += 1
         
         n_frames = int(counter / lines_per_frame)
-        self.offsets = offsets
+        self.offsets = offset
         return n_frames
 
     def read_all_frames(self):
