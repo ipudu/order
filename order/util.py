@@ -8,7 +8,6 @@
 # Released under the MIT License
 ###############################################################################
 
-from __future__ import division
 import numpy as np
 
 
@@ -34,6 +33,16 @@ def output_system_info(filename, n_atoms, n_frames):
     print('  Number of particles in the box:\t{:d}'.format(n_atoms))
     print('       Total number of snapshots:\t{:d}\n\n'.format(n_frames))
 
+def output_task(name, freq, bins, center):
+    """print task information"""
+    print('Task information:\n')
+    if name is 'oto':
+        print('                  Parameter name:\tOritentational tetrahedral order')
+    if name is 'tto':
+        print('                  Parameter name:\tTranslational tetrahedral order')
+    print('                       Frequency:\tevery {:d} frame(s)'.format(freq))
+    print('                  Number of bins:\t{:d}'.format(bins))
+    print('                     Center atom:\t{:s}'.format(center))
 
 def output_end(t_start, t_end):
     """print total running time"""
