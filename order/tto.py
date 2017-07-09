@@ -19,22 +19,17 @@ import six
 from six.moves import range
 import numpy as np
 
-#from  order import oto
-#from order import util
-import util
-import oto
+from . import oto
 
 class Translational(oto.Orientational):
     """translational tetrahedral order parameter"""
-    def __init__(self, filename, center, bins=1000):
-        print(filename)
+    def __init__(self, filename, center, bins=100):
         super(Translational, self).__init__(filename, center, bins)
         self.sk = np.zeros(bins+1)
     
     def translational_param(self, freq = 100):
         """compute translational order parameter"""
         for i in range(0, self.traj.n_frames, freq):
-            print(i)
             foo = self.four_neighbors(self.traj.coords[i], self.traj.box_size[i])
             for j in range(self.traj.n_atoms):
                 s = 0.0
