@@ -19,8 +19,7 @@ import six
 from six.moves import range
 import numpy as np
 
-#from order import util
-import util
+from .util import pbc, cos_angle
 
 
 class Orientational(object):
@@ -42,7 +41,7 @@ class Orientational(object):
                 dx, dy, dz = coords[i] - coords[j]
 
                 #periodic boundary conditions
-                dx, dy, dz = util.pbc(dx, dy, dz, L)
+                dx, dy, dz = pbc(dx, dy, dz, L)
 
                 dist_ij = np.sqrt(dx * dx + dy * dy + dz * dz)
                 dist[i][j] = dist_ij
@@ -58,23 +57,22 @@ class Orientational(object):
                 dx, dy, dz = coords[index] - coords[i]
 
                 #periodic boundary conditions
-                dx, dy, dz = util.pbc(dx, dy, dz, L)
+                dx, dy, dz = pbc(dx, dy, dz, L)
 
                 my_vector[i][j] = [dx, dy, dz]
                 j += 1
         return my_vector
 
-    def orientational_param(self, freq = 1):
+    def orientational_param(self, freq = 100):
         """compute orientational order parameter"""
         for i in range(0, self.traj.n_frames, freq):
-            print(i)
             foo = self.four_neighbors(self.traj.coords[i], self.traj.box_size[i])
             for j in range(self.traj.n_atoms):
                 if self.traj.atom_names[i][j] == self.center:
                     q = 0.0
                     for k in range(3):
                         for l in range(k + 1, 4):
-                            cos_phi = util.cos_angle(foo[j][k], foo[j][l])
+                            cos_phi = cos_angle(foo[j][k], foo[j][l])
                             q += (cos_phi + 1 / 3) ** 2
                     q = 1 - 3 / 8 * q
                     if q > 0:
