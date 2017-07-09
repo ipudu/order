@@ -15,7 +15,6 @@
 from __future__ import print_function, division
 import six
 from six.moves import range
-from . import util
 
 
 import numpy as np
@@ -24,7 +23,6 @@ import numpy as np
 class XYZLoader(object):
 
     def __init__(self, filename):
-        util.output_welcome()
         self.filename = filename
         self.xyzfile = open(self.filename, 'r')
         self.offsets = []
@@ -34,7 +32,6 @@ class XYZLoader(object):
         self.atom_names = np.chararray([self.n_frames, self.n_atoms, 1], itemsize=3)
         self.coords = np.empty([self.n_frames, self.n_atoms, 3], dtype=np.float)
         self.read_all_frames()
-        util.output_system_info(self.filename, self.n_atoms, self.n_frames)
 
     
     def close(self):
@@ -100,4 +97,4 @@ class XYZLoader(object):
         """read all frames of XYZ trajectory"""
         for frame in range(self.n_frames):
             self.xyzfile.seek(self.offsets[frame])
-            self.read_next_frame(frame)                                                                
+            self.read_next_frame(frame)
