@@ -5,8 +5,12 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-# command to install dependencies
-install: "pip install -r requirements.txt"
+notifications:
+  email: false
 
-# command to run tests
+install:
+  - pip install -r requirements.txt
+  - python setup.py install
+
+#run test
 script: order
