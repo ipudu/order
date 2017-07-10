@@ -8,8 +8,10 @@
 # Released under the MIT License
 ###############################################################################
 
+from __future__ import print_function
 import argparse
-#from order import XYZ, oto, tto, lsi, plot, util
+import time
+from . import XYZ, oto, tto, lsi, plot, util
 
 def get_parser():
     parser = argparse.ArgumentParser(description='Order: A tool to characterize the \
@@ -22,6 +24,8 @@ def get_parser():
                         help=' type of center atom  (default: O)')
     parser.add_argument('-b','--bins', default=100, type=int,
                         help=' number of bins for the parameter (default: 100)')
+    parser.add_argument('-f','--frequency', default=1, type=int,
+                        help=' compute the parameter every n frame(s) (default: 1)')                        
     parser.add_argument('-p','--plot', default='on', type=str,
                         help='turn on / off of plotting (default: on)')
     return parser
@@ -33,20 +37,29 @@ def command_line_runner():
         parser.print_help()
         return
     if args['task']:
+        t_start = time.clock()
         util.output_welcome()
         
-        reader = XYZLoader(args['input'])
+        reader = XYZ.XYZLoader(args['input'])
         
         util.output_system_info(reader.filename, reader.n_atoms, reader.n_frames)
 
         if 'oto' in args['task']:
-            tasker = (reader, args['center'], args['bins'])
+            util.output_task('oto', args['frequency'], args['bins'], args['center'])
+            tasker = oto.Orientational(reader, args['center'], args['bins'])
             tasker.orientational_param()
-            tasker.out_put()
+            tasker.out_put(tasker.Q)
+        
+        if 'tto' in args['task']:
+            util.output_task('tto', args['frequency'], args['bins'], args['center'])
+            tasker = tto.Translational(reader, args['center'], args['bins'])
+            tasker.translational_param()
+            tasker.out_put(tasker.sk, 'TTO', 'Sk')
 
     if args['plot'] is 'on':
         pass
-    
-    #util.output_end()
+
+    t_end = time.clock()
+    util.output_end(t_start, t_end)
 if __name__ == '__main__':
     command_line_runner()
