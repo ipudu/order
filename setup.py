@@ -42,5 +42,7 @@ setup(
     },
     install_requires=[
         'numpy',
+        'six',
+        'progress',
     ],
 )
