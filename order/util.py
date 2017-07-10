@@ -31,23 +31,23 @@ def output_system_info(filename, n_atoms, n_frames):
     print('System information:\n')
     print('        XYZ trajectory file name:\t{:s}'.format(filename))
     print('  Number of particles in the box:\t{:d}'.format(n_atoms))
-    print('       Total number of snapshots:\t{:d}\n\n'.format(n_frames))
+    print('       Total number of snapshots:\t{:d}\n'.format(n_frames))
 
 def output_task(name, freq, bins, center):
     """print task information"""
-    print('Task information:\n')
+    print('\nTask information:\n')
     if name is 'oto':
         print('                  Parameter name:\tOritentational tetrahedral order')
     if name is 'tto':
         print('                  Parameter name:\tTranslational tetrahedral order')
     print('                       Frequency:\tevery {:d} frame(s)'.format(freq))
     print('                  Number of bins:\t{:d}'.format(bins))
-    print('                     Center atom:\t{:s}'.format(center))
+    print('                     Center atom:\t{:s}\n'.format(center))
 
 def output_end(t_start, t_end):
     """print total running time"""
-    print('-' * 70)
-    print ('Total looping time = {:.2f} seconds.'.format(t_end - t_start))
+    print('\n' + '-' * 70)
+    print ('\nTotal elapsed time = {:.2f} seconds.'.format(t_end - t_start))
     art = """
                            .
                           ":"

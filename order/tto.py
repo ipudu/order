@@ -17,8 +17,9 @@ from __future__ import print_function, division
 import os
 import six
 from six.moves import range
-import numpy as np
 
+import numpy as np
+from progress.bar import ChargingBar
 from . import oto
 
 class Translational(oto.Orientational):
@@ -29,6 +30,11 @@ class Translational(oto.Orientational):
     
     def translational_param(self, freq = 100):
         """compute translational order parameter"""
+        #progress bar
+        frames = int(self.traj.n_frames / freq)
+        bar = ChargingBar('Processing', max=frames, 
+        suffix='%(percent).1f%% - %(eta)ds')
+        
         for i in range(0, self.traj.n_frames, freq):
             foo = self.four_neighbors(self.traj.coords[i], self.traj.box_size[i])
             for j in range(self.traj.n_atoms):
@@ -40,3 +46,5 @@ class Translational(oto.Orientational):
                 
                 self.raw.append(s)
                 self.sk[int(round(s * self.bins))] += 1
+            bar.next()
+        bar.finish()

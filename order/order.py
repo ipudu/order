@@ -47,14 +47,14 @@ def command_line_runner():
         if 'oto' in args['task']:
             util.output_task('oto', args['frequency'], args['bins'], args['center'])
             tasker = oto.Orientational(reader, args['center'], args['bins'])
-            tasker.orientational_param()
-            tasker.out_put(tasker.Q)
+            tasker.orientational_param(args['frequency'])
+            r, d = tasker.out_put(tasker.Q)
         
         if 'tto' in args['task']:
             util.output_task('tto', args['frequency'], args['bins'], args['center'])
             tasker = tto.Translational(reader, args['center'], args['bins'])
-            tasker.translational_param()
-            tasker.out_put(tasker.sk, 'TTO', 'Sk')
+            tasker.translational_param(args['frequency'])
+            r, d = tasker.out_put(tasker.sk, 'TTO', 'Sk')
 
     if args['plot'] is 'on':
         pass
