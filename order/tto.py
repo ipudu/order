@@ -38,13 +38,14 @@ class Translational(oto.Orientational):
         for i in range(0, self.traj.n_frames, freq):
             foo = self.four_neighbors(self.traj.coords[i], self.traj.box_size[i])
             for j in range(self.traj.n_atoms):
-                s = 0.0
-                norms = np.array(map(np.linalg.norm, foo[j]))
-                sqrt_norms = (norms - norms.mean()) ** 2
-                sum_norms = sqrt_norms.sum() / ( 4 * norms.mean() ** 2)
-                s = 1 - 1 / 3 * sum_norms
-                
-                self.raw.append(s)
-                self.sk[int(round(s * self.bins))] += 1
+                if self.traj.atom_names[i][j] == self.center:
+                    s = 0.0
+                    norms = np.array(map(np.linalg.norm, foo[j]))
+                    sqrt_norms = (norms - norms.mean()) ** 2
+                    sum_norms = sqrt_norms.sum() / ( 4 * norms.mean() ** 2)
+                    s = 1 - 1 / 3 * sum_norms
+                    
+                    self.raw.append(s)
+                    self.sk[int(round(s * self.bins))] += 1
             bar.next()
         bar.finish()
