@@ -37,5 +37,6 @@ class Translational(oto.Orientational):
                 sqrt_norms = (norms - norms.mean()) ** 2
                 sum_norms = sqrt_norms.sum() / ( 4 * norms.mean() ** 2)
                 s = 1 - 1 / 3 * sum_norms
-            
+                
+                self.raw.append(s)
                 self.sk[int(round(s * self.bins))] += 1
