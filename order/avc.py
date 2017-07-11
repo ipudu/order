@@ -26,13 +26,13 @@ class VoronoiCell(oto.Orientational):
 
     def wrap_box(self, c_coord, coords, L):
         """wrap the simulation box"""
-        new_coords = np.zeros(self.traj.n_atoms, dtype=np.float)
+        new_coords = np.zeros([self.traj.n_atoms,3], dtype=np.float)
         for i in range(self.traj.n_atoms):
             dx, dy, dz = coords[i] - c_coord
 
             #periodic boundary conditions
             dx, dy, dz = pbc(dx, dy, dz, L)
-            new_coords[i] = [dx, dy, dz]
+            new_coords[i] = np.array([dx, dy, dz])
         
         return new_coords
 
