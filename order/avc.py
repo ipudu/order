@@ -66,7 +66,7 @@ class VoronoiCell(oto.Orientational):
 
         #compute S and V
         S = ConvexHull(points).area
-        V = ConvexHull(points).volumes
+        V = ConvexHull(points).volume
 
         #voronoi cell
         eta = S ** 3 / (36 * np.pi * V ** 2)
