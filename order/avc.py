@@ -13,6 +13,7 @@ from six.moves import range
 
 import numpy as np
 from scipy.spatial import ConvexHull
+from scipy.spatial import Voronoi
 from progress.bar import ChargingBar
 from .util import pbc
 from . import oto
@@ -23,38 +24,22 @@ class VoronoiCell(oto.Orientational):
         super(VoronoiCell, self).__init__(filename, center, bins)
         #self.Eta = np.zeros(bins+1)
 
-    def polyhedron(self, c_coord, coords, L):
-        """find the polyhedron for center molecule"""
-        dist = np.zeros(self.traj.n_atoms, dtype=np.float)
-        
+    def wrap_box(self, c_coord, coords, L):
+        """wrap the simulation box"""
+        new_coords = np.zeros(self.traj.n_atoms, dtype=np.float)
         for i in range(self.traj.n_atoms):
-                dx, dy, dz = coords[i] - c_coord
-
-                #periodic boundary conditions
-                dx, dy, dz = pbc(dx, dy, dz, L)
-
-                dist[i] = np.sqrt(dx * dx + dy * dy + dz * dz)
-        
-        dist_sorted = sorted(enumerate(dist), key=lambda x:x[1])
-
-        indexs = []
-        for i in range(1, self.traj.n_atoms - 1):
-            indexs.append(dist_sorted[i][0])
-            if 2 * dist_sorted[i][1] < dist_sorted[i+1][1]:
-                break
-        
-        points = []
-        for index in indexs:
-            dx, dy, dz = coords[index] - coords[i]
+            dx, dy, dz = coords[i] - c_coord
 
             #periodic boundary conditions
             dx, dy, dz = pbc(dx, dy, dz, L)
+            new_coords[i] = np.array([dx, dy, dz])
+        
+        return new_coords
 
-            point = np.array([dx, dy, dz])
-            points.append(point)
-        points = np.array(points, dtype=np.float)
-        points += c_coord
-        return points
+    def polyhedron(self, coords):
+        """find the polyhedron for center molecule"""
+        vor = Voronoi(coords)
+        return vor.vertices
 
     def compute_vc(self, points):
         """compute the Voronoi cell"""
@@ -89,9 +74,11 @@ class VoronoiCell(oto.Orientational):
                     #coordinates
                     cs = self.traj.coords[i]
 
-
                     L = self.traj.box_size[i]
-                    points = self.polyhedron(c, cs, L)
+
+                    #new coordinates after wrapping
+                    nc = wrap_box(self, c, cs, L)
+                    points = self.polyhedron(nc)
                     e = self.compute_vc(points)
                     self.raw.append(e)
                     #self.Eta[int(round(e * self.bins))] += 1
