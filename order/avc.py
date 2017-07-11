@@ -22,7 +22,7 @@ class VoronoiCell(oto.Orientational):
     """asphericity of the Voronoi cell"""
     def __init__(self, filename, center, bins=100):
         super(VoronoiCell, self).__init__(filename, center, bins)
-        #self.Eta = np.zeros(bins+1)
+        self.Eta = np.zeros(bins+1)
 
     def wrap_box(self, c_coord, coords, L):
         """wrap the simulation box"""
@@ -36,10 +36,14 @@ class VoronoiCell(oto.Orientational):
         
         return new_coords
 
-    def polyhedron(self, coords):
+    def polyhedron(self, coords, L):
         """find the polyhedron for center molecule"""
         vor = Voronoi(coords)
-        return vor.vertices
+        #get the vertices
+        points = [vor.vertices[x] for x in vor.regions[vor.point_region[0]]]
+        #TODO:get correct vertices
+        points = [point for point in points if (point <= L / 2).all()]
+        return points
 
     def compute_vc(self, points):
         """compute the Voronoi cell"""
@@ -73,12 +77,13 @@ class VoronoiCell(oto.Orientational):
                     
                     #coordinates
                     cs = self.traj.coords[i]
-
+                    
+                    #box_size
                     L = self.traj.box_size[i]
 
                     #new coordinates after wrapping
                     nc = self.wrap_box(c, cs, L)
-                    points = self.polyhedron(nc)
+                    points = self.polyhedron(nc, L)
                     e = self.compute_vc(points)
                     self.raw.append(e)
                     #self.Eta[int(round(e * self.bins))] += 1
