@@ -28,7 +28,7 @@ class Translational(oto.Orientational):
         super(Translational, self).__init__(filename, center, bins)
         self.sk = np.zeros(bins+1)
     
-    def translational_param(self, freq = 100):
+    def translational_param(self, freq = 1):
         """compute translational order parameter"""
         #progress bar
         frames = int(self.traj.n_frames / freq)

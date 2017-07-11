@@ -66,7 +66,7 @@ class Orientational(object):
                 j += 1
         return my_vector
 
-    def orientational_param(self, freq = 100):
+    def orientational_param(self, freq = 1):
         """compute orientational order parameter"""
         #progress bar
         frames = int(self.traj.n_frames / freq)

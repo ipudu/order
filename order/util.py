@@ -40,6 +40,8 @@ def output_task(name, freq, bins, center):
         print('                  Parameter name:\tOritentational tetrahedral order')
     if name is 'tto':
         print('                  Parameter name:\tTranslational tetrahedral order')
+    if name is 'avc':
+        print('                  Parameter name:\tAsphericity of the Voronoi cell')
     print('                       Frequency:\tevery {:d} frame(s)'.format(freq))
     print('                  Number of bins:\t{:d}'.format(bins))
     print('                     Center atom:\t{:s}\n'.format(center))
