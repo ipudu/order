@@ -77,7 +77,7 @@ class VoronoiCell(oto.Orientational):
                     L = self.traj.box_size[i]
 
                     #new coordinates after wrapping
-                    nc = self.wrap_box(self, c, cs, L)
+                    nc = self.wrap_box(c, cs, L)
                     points = self.polyhedron(nc)
                     e = self.compute_vc(points)
                     self.raw.append(e)
