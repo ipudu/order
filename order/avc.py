@@ -32,7 +32,7 @@ class VoronoiCell(oto.Orientational):
 
             #periodic boundary conditions
             dx, dy, dz = pbc(dx, dy, dz, L)
-            new_coords[i] = np.array([dx, dy, dz])
+            new_coords[i] = [dx, dy, dz]
         
         return new_coords
 
