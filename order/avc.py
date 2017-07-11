@@ -21,7 +21,7 @@ class VoronoiCell(oto.Orientational):
     """asphericity of the Voronoi cell"""
     def __init__(self, filename, center, bins=100):
         super(VoronoiCell, self).__init__(filename, center, bins)
-        self.Eta = np.zeros(bins+1)
+        #self.Eta = np.zeros(bins+1)
 
     def polyhedron(self, c_coord, coords, L):
         """find the polyhedron for center molecule"""
@@ -94,6 +94,6 @@ class VoronoiCell(oto.Orientational):
                     points = self.polyhedron(c, cs, L)
                     e = self.compute_vc(points)
                     self.raw.append(e)
-                    self.Eta[int(round(e * self.bins))] += 1
+                    #self.Eta[int(round(e * self.bins))] += 1
             bar.next()
         bar.finish()
