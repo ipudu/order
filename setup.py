@@ -44,5 +44,6 @@ setup(
         'numpy',
         'six',
         'progress',
+        'scipy',
     ],
 )
