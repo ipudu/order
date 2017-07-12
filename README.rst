@@ -1,4 +1,6 @@
-Order
+.. image:: https://raw.githubusercontent.com/ipudu/order/master/docs/_static/images/order_small.png
+    :target: https://order.readthedocs.io/
+    :align: center
 ========================
 
 .. image:: https://img.shields.io/travis/ipudu/order.svg
