@@ -1,20 +1,24 @@
-.. Order documentation master file, created by
-   sphinx-quickstart on Wed Jul 12 11:48:51 2017.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to Order's documentation!
-=================================
-
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+  :maxdepth: 2
+  :hidden:
 
+  api/modules.rst
 
+Order
+=================================
+**Order** : A tool to characterize the local structure of liquid water by geometric order parameters.
 
-Indices and tables
-==================
+Getting started
+---------------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Installation:
+
+.. code-block:: console
+
+    $ pip install order
+
+Resources
+~~~~~~~~~
+
+* `GitHub <https://github.com/ipudu/order>`__
+* `Issues <https://github.com/ipudu/order/issues>`__
