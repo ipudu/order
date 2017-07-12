@@ -22,7 +22,6 @@ class VoronoiCell(oto.Orientational):
     """asphericity of the Voronoi cell"""
     def __init__(self, filename, center, bins=100):
         super(VoronoiCell, self).__init__(filename, center, bins)
-        self.Eta = np.zeros(bins+1)
 
     def wrap_box(self, c_coord, coords, L):
         """wrap the simulation box"""
@@ -36,23 +35,15 @@ class VoronoiCell(oto.Orientational):
         
         return new_coords
 
-    def polyhedron(self, coords, L):
+    def polyhedron(self, coords, j, L):
         """find the polyhedron for center molecule"""
         vor = Voronoi(coords)
         #get the vertices
-        points = [vor.vertices[x] for x in vor.regions[vor.point_region[0]]]
-        #TODO:get correct vertices
-        points = [point for point in points if (point <= L / 2).all()]
+        points = [vor.vertices[x] for x in vor.regions[vor.point_region[j]] if x != -1]
         return points
 
     def compute_vc(self, points):
         """compute the Voronoi cell"""
-        #total area of all planes
-        S = 0.0
-
-        #total volume of Voronoi polyhedron
-        V = 0.0
-
         #compute S and V
         S = ConvexHull(points).area
         V = ConvexHull(points).volume
@@ -83,9 +74,10 @@ class VoronoiCell(oto.Orientational):
 
                     #new coordinates after wrapping
                     nc = self.wrap_box(c, cs, L)
-                    points = self.polyhedron(nc, L)
+                    points = self.polyhedron(nc, j, L)
                     e = self.compute_vc(points)
                     self.raw.append(e)
-                    #self.Eta[int(round(e * self.bins))] += 1
             bar.next()
         bar.finish()
+        self.his, self.param = np.histogram(self.raw, self.bins, normed = True)
+        
