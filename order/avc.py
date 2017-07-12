@@ -79,5 +79,4 @@ class VoronoiCell(oto.Orientational):
                     self.raw.append(e)
             bar.next()
         bar.finish()
-        self.his, self.param = np.histogram(self.raw, self.bins, normed = True)
         

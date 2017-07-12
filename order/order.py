@@ -48,19 +48,19 @@ def command_line_runner():
             util.output_task('oto', args['frequency'], args['bins'], args['center'])
             tasker = oto.Orientational(reader, args['center'], args['bins'])
             tasker.orientational_param(args['frequency'])
-            r, d = tasker.out_put(tasker.Q)
+            tasker.out_put()
         
         if 'tto' in args['task']:
             util.output_task('tto', args['frequency'], args['bins'], args['center'])
             tasker = tto.Translational(reader, args['center'], args['bins'])
             tasker.translational_param(args['frequency'])
-            r, d = tasker.out_put(tasker.sk, 'TTO', 'Sk')
+            tasker.out_put('TTO', 'Sk')
 
         if 'avc' in args['task']:
             util.output_task('avc', args['frequency'], args['bins'], args['center'])
             tasker = avc.VoronoiCell(reader, args['center'], args['bins'])
             tasker.asphericity(args['frequency'])
-            r, d = tasker.out_put(tasker.Eta, 'AVC', 'Eta')
+            tasker.out_put('AVC', 'Eta')
 
     if args['plot'] is 'on':
         pass

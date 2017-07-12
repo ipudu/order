@@ -26,7 +26,6 @@ class Translational(oto.Orientational):
     """translational tetrahedral order parameter"""
     def __init__(self, filename, center, bins=100):
         super(Translational, self).__init__(filename, center, bins)
-        self.sk = np.zeros(bins+1)
     
     def translational_param(self, freq = 1):
         """compute translational order parameter"""
@@ -46,6 +45,5 @@ class Translational(oto.Orientational):
                     s = 1 - 1 / 3 * sum_norms
                     
                     self.raw.append(s)
-                    self.sk[int(round(s * self.bins))] += 1
             bar.next()
         bar.finish()
