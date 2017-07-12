@@ -21,7 +21,6 @@ from six.moves import range, zip
 import numpy as np
 from progress.bar import ChargingBar
 from .util import pbc, cos_angle
-import matplotlib.pyplot as plt
 
 
 class Orientational(object):
