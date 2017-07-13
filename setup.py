@@ -12,27 +12,32 @@ from setuptools import setup, find_packages
 import order
 import os
 
+def readme():
+    with open('README.rst') as f:
+        return f.read()
+
 setup(
     name='Order',
-    version='0.1',
-    description='',
-    long_description='',
+    version='0.0.1',
+    description='A tool to characterize the local structure of liquid water by geometric order parameters',
+    long_description=readme(),
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 1 - Planning",
         "Environment :: Console",
-        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
-        "Topic :: Documentation",
+        "Topic :: Scientific/Engineering :: Chemistry",
+        "Topic :: Scientific/Engineering :: Physics",
     ],
-    keywords='Order',
+    keywords='order parameter, water structure',
     author='Pu Du',
     author_email='pudugg@gmail.com',
     maintainer='Pu Du',
     maintainer_email='pudugg@gmail.com',
-    url='',
+    url='https://github.com/ipudu/order',
     license='MIT',
     packages=find_packages(),
     entry_points={
