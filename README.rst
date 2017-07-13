@@ -20,6 +20,9 @@
     :target: http://order.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
+.. image:: https://zenodo.org/badge/96138460.svg
+   :target: https://zenodo.org/badge/latestdoi/96138460
+
 A tool to characterize the local structure of liquid water by geometric order parameters.
 
 Getting started
