@@ -26,9 +26,9 @@ or
 
 .. code-block:: console
 
-    $git clone https://github.com/ipudu/order
-    $cd order
-    $python setup.py install
+    $ git clone https://github.com/ipudu/order
+    $ cd order
+    $ python setup.py install
 
 Running:
 
