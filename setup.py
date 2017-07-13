@@ -22,7 +22,7 @@ setup(
     description='A tool to characterize the local structure of liquid water by geometric order parameters',
     long_description=readme(),
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
         "Environment :: Console",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 2.7",
