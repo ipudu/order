@@ -20,7 +20,7 @@ Installation:
 
 .. code-block:: console
 
-    $ pip install order
+    $ pip install iorder
 
 or
 
