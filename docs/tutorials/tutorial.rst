@@ -1,5 +1,5 @@
 Tutorials
 =============
 
-Tutorials are comming soon. Stay tunned!
+Tutorials are comming soon. Stay tuned!
 ----------------------------------------
