@@ -1,5 +1,5 @@
 .. image:: https://raw.githubusercontent.com/ipudu/order/master/docs/_static/images/order_small.png
-    :target: https://order.readthedocs.io/
+    :target: http://order.readthedocs.io/
     :align: center
 
 ========================
@@ -51,7 +51,7 @@ Order is ready to calculate several geometric order parameters:
 Documentation
 -------------
 
-The documentation of Order is available at http://order.readthedocs.io/
+The documentation of Order is available at http://order.readthedocs.io/.
 
 Contributing
 ------------
