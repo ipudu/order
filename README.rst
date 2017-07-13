@@ -52,7 +52,7 @@ Running:
 Feature Support
 ---------------
 
-Order is ready to calculate several geometric order parameters:
+**Order** is ready to calculate several geometric order parameters:
 
 - Orientational Tetrahedral Order
 - Translational Tetrahedral Order
