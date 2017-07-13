@@ -32,7 +32,7 @@ setup(
         "Topic :: Scientific/Engineering :: Chemistry",
         "Topic :: Scientific/Engineering :: Physics",
     ],
-    keywords='order parameter, water structure',
+    keywords=['order parameter', 'water structure'],
     author='Pu Du',
     author_email='pudugg@gmail.com',
     maintainer='Pu Du',
