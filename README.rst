@@ -1,6 +1,7 @@
 .. image:: https://raw.githubusercontent.com/ipudu/order/master/docs/_static/images/order_small.png
     :target: https://order.readthedocs.io/
     :align: center
+
 ========================
 
 .. image:: https://img.shields.io/travis/ipudu/order.svg
@@ -12,46 +13,54 @@
 
 A tool to characterize the local structure of liquid water by geometric order parameters.
 
-Installation
-------------
+Getting started
+---------------
 
-::
+Installation:
 
-    pip install order
+.. code-block:: console
+
+    $ pip install order
 
 or
 
-::
+.. code-block:: console
 
-    git clone https://github.com/ipudu/order
-    cd order
-    python setup.py install
+    $git clone https://github.com/ipudu/order
+    $cd order
+    $python setup.py install
 
-Usage
------
+Running:
 
-::
+.. code-block:: console
+    
+    #calculate bar parmeter for center atom of O
+    $order foo.xyz -t bar -c 'O' -f 100 -b 100
 
-    usage: order [-h] [-t TASK] [-c CENTER] [-b BINS] [-f FREQUENCY] [-p PLOT]
-                [input]
+Feature Support
+---------------
 
-    Order: A tool to characterize the local structure of liquid water by geometric
-    order parameters
+Order is ready to calculate several geometric order parameters:
 
-    positional arguments:
-    input                 XYZ trajectory of system
+- Orientational Tetrahedral Order
+- Translational Tetrahedral Order
+- Local Structure Index (**under working**)
+- Asphericity of the Voronoi Cell
+- Water-Water Angular Distribution Function (**under working**)
 
-    optional arguments:
-    -h, --help            show this help message and exit
-    -t TASK, --task TASK  type of task: oto,tto,lsi (default: oto)
-    -c CENTER, --center CENTER
-                            type of center atom (default: O)
-    -b BINS, --bins BINS  number of bins for the parameter (default: 100)
-    -f FREQUENCY, --frequency FREQUENCY
-                            compute the parameter every n frame(s) (default: 1)
-    -p PLOT, --plot PLOT  turn on / off of plotting (default: on)
+Documentation
+-------------
 
-Author
-------
+The documentation of Order is available at http://order.readthedocs.io/
 
--  Pu Du (`pudu.io <https://pudu.io>`_)
+Contributing
+------------
+
+Contributions to this library are always welcome and highly appreciated.
+
+License
+-------
+
+MIT - See the LICENSE_ for more information.
+
+.. _LICENSE: https://github.com/ipudu/order/blob/master/LICENSE
