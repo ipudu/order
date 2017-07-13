@@ -35,7 +35,7 @@ Running:
 .. code-block:: console
     
     #calculate bar parmeter for center atom of O
-    $order foo.xyz -t bar -c 'O' -f 100 -b 100
+    $ order foo.xyz -t bar -c 'O' -f 100 -b 100
 
 Feature Support
 ---------------
