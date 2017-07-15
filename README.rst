@@ -7,9 +7,21 @@
 .. image:: https://img.shields.io/travis/ipudu/order.svg
     :target: https://travis-ci.org/ipudu/order
 
+.. image:: https://img.shields.io/pypi/v/iorder.svg
+    :target: https://pypi.python.org/pypi/iorder
+
+.. image:: https://img.shields.io/pypi/l/iorder.svg
+    :target: https://pypi.python.org/pypi/iorder
+
+.. image:: https://img.shields.io/pypi/pyversions/iorder.svg
+    :target: https://pypi.python.org/pypi/iorder
+
 .. image:: https://readthedocs.org/projects/order/badge/?version=latest
     :target: http://order.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
+
+.. image:: https://zenodo.org/badge/96138460.svg
+   :target: https://zenodo.org/badge/latestdoi/96138460
 
 A tool to characterize the local structure of liquid water by geometric order parameters.
 
@@ -20,7 +32,7 @@ Installation:
 
 .. code-block:: console
 
-    $ pip install order
+    $ pip install iorder
 
 or
 
@@ -40,7 +52,7 @@ Running:
 Feature Support
 ---------------
 
-Order is ready to calculate several geometric order parameters:
+**Order** is ready to calculate several geometric order parameters:
 
 - Orientational Tetrahedral Order
 - Translational Tetrahedral Order
