@@ -50,5 +50,6 @@ setup(
         'six',
         'progress',
         'scipy',
+        'matplotlib',
     ],
 )

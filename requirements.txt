@@ -2,3 +2,4 @@ numpy
 six
 progress
 scipy
+matplotlib
