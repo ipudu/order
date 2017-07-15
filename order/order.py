@@ -62,8 +62,9 @@ def command_line_runner():
             tasker.asphericity(args['frequency'])
             tasker.out_put('AVC', 'Eta')
 
-    if args['plot'] is 'on':
-        pass
+    if args['plot'] == 'on':
+        for t in args['task'].split(','):
+            ploter = plot.plot(args['input'], t)
 
     t_end = time.clock()
     util.output_end(t_start, t_end)
