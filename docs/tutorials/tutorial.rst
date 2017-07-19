@@ -1,4 +1,4 @@
-5 minutes tutorial
+5 Minutes Tutorial
 ==================
 
 System
