@@ -89,11 +89,15 @@ html_theme = 'alabaster'
 # documentation.
 #
 html_theme_options = {
+    'description': 'a tool to characterize the local structure of liquid water by geometric order parameters',
     'show_powered_by': False,
     'github_user': 'ipudu',
     'github_repo': 'order',
     'github_banner': True,
-    'show_related': False
+    'show_related': False,
+    'font_family': "'Roboto', Georgia, sans",
+    'head_font_family': "'Roboto', Georgia, serif",
+    'code_font_family': "'Roboto Mono', 'Consolas', monospace",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
