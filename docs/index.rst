@@ -1,7 +1,7 @@
 .. toctree::
   :maxdepth: 2
   :hidden:
-  
+
   tutorials/tutorial.rst
   api/modules.rst
 
@@ -37,31 +37,13 @@ Installation:
 
     $ pip install iorder
 
-
-
-Usage:
-~~~~~~
+Running:
+~~~~~~~~
 
 .. code-block:: console
 
-    usage: order [-h] [-t TASK] [-c CENTER] [-b BINS] [-f FREQUENCY] [-p PLOT]
-            [input]
-
-    Order: A tool to characterize the local structure of liquid water by 
-    geometric order parameters
-
-    positional arguments:
-    input                 XYZ trajectory of system
-
-    optional arguments:
-    -h, --help            show this help message and exit
-    -t TASK, --task TASK  type of task: oto,tto,avc (default: oto)
-    -c CENTER, --center CENTER
-                            type of center atom (default: O)
-    -b BINS, --bins BINS  number of bins for the parameter (default: 100)
-    -f FREQUENCY, --frequency FREQUENCY
-                            compute the parameter every n frame(s) (default: 1)
-    -p PLOT, --plot PLOT  turn on / off of plotting (default: on)
+    # calculate bar parmeter for center atom of O
+    $ order foo.xyz -t bar -c 'O' -f 100 -b 100
 
 Feature Support
 ---------------
