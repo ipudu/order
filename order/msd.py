@@ -49,7 +49,7 @@ class meanSquareD(oto.Orientational):
             bar.next()
         bar.finish()
 
-   def out_put(self, taskname='MSD'):
+    def out_put(self, taskname='MSD'):
         """output raw data of msd"""
         raw_data = self.fprefix + '_' + taskname + '_raw.dat'
         with open(raw_data, 'w') as f:
