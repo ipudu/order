@@ -55,6 +55,7 @@ Feature Support
 - Local Structure Index (**under working**)
 - Asphericity of the Voronoi Cell
 - Water-Water Angular Distribution Function (**under working**)
+- and more
 
 Contributing
 ------------
