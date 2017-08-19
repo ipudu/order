@@ -51,6 +51,10 @@ class plot(object):
         if self.taskname == 'avc':
             plt.xlabel("Asphericity")
             plt.ylabel(r"$P(Asphericity)  (arb. unit)$")
+        
+        if self.taskname == 'msd':
+            plt.xlabel('t')
+            plt.ylabel('<r^2>')
 
         x = self.data[:,0]
         y = self.data[:,1]

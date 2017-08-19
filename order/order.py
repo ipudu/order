@@ -11,7 +11,7 @@
 from __future__ import print_function
 import argparse
 import time
-from . import XYZ, oto, tto, avc, lsi, plot, util
+from . import XYZ, oto, tto, avc, msd, lsi, plot, util
 
 def get_parser():
     parser = argparse.ArgumentParser(description='Order: A tool to characterize the \
@@ -61,6 +61,13 @@ def command_line_runner():
             tasker = avc.VoronoiCell(reader, args['center'], args['bins'])
             tasker.asphericity(args['frequency'])
             tasker.out_put('AVC', 'Eta')
+
+        if 'msd' in args['task']:
+            util.output_task('msd', args['frequency'], args['bins'], args['center'])
+            tasker = msd.meanSquareD(reader, args['center'], args['bins'])
+            #TODO:
+            tasker.mean_square_displacement(1000, args['frequency'])
+            tasker.out_put('MSD')
 
     if args['plot'] == 'on':
         for t in args['task'].split(','):

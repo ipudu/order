@@ -42,9 +42,12 @@ def output_task(name, freq, bins, center):
         print('                  Parameter name:\tTranslational tetrahedral order')
     if name is 'avc':
         print('                  Parameter name:\tAsphericity of the Voronoi cell')
+    if name is 'msd':
+        print('                  Parameter name:\tMean square displacement')
     print('                       Frequency:\tevery {:d} frame(s)'.format(freq))
     print('                  Number of bins:\t{:d}'.format(bins))
-    print('                     Center atom:\t{:s}\n'.format(center))
+    if name is not 'msd':
+        print('                     Center atom:\t{:s}\n'.format(center))
 
 def output_end(t_start, t_end):
     """print total running time"""
