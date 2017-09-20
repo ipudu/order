@@ -64,13 +64,15 @@ class XYZLoader(object):
             f.readline()
             #read box size of each frame
             box = f.readline().split()
-            self.box_size[frame] = np.array(map(float, box), dtype=np.float)
+            self.box_size[frame] = np.array(list(map(float, box)), dtype=np.float)
             
             for i in range(self.n_atoms):
                 line = f.readline().split()
+                print(line)
                 self.atom_names[frame][i] = line[0]
                 self.coords[frame][i] = \
-                np.array(map(float, line[1:4]), dtype=np.float)
+                np.array(list(map(float, line[1:4])), dtype=np.float)
+
         
         except (ValueError, IndexError) as err:
             raise EOFError(err)
