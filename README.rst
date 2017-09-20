@@ -56,9 +56,7 @@ Feature Support
 
 - Orientational Tetrahedral Order
 - Translational Tetrahedral Order
-- Local Structure Index (**under working**)
 - Asphericity of the Voronoi Cell
-- Water-Water Angular Distribution Function (**under working**)
 - and more
 
 Documentation

@@ -37,6 +37,14 @@ Installation:
 
     $ pip install iorder
 
+or
+
+.. code-block:: console
+
+    $ git clone https://github.com/ipudu/order
+    $ cd order
+    $ python setup.py install
+
 Running:
 ~~~~~~~~
 
@@ -52,9 +60,7 @@ Feature Support
 
 - Orientational Tetrahedral Order
 - Translational Tetrahedral Order
-- Local Structure Index (**under working**)
 - Asphericity of the Voronoi Cell
-- Water-Water Angular Distribution Function (**under working**)
 - and more
 
 Contributing
