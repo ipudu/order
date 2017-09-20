@@ -68,7 +68,6 @@ class XYZLoader(object):
             
             for i in range(self.n_atoms):
                 line = f.readline().split()
-                print(line)
                 self.atom_names[frame][i] = line[0]
                 self.coords[frame][i] = \
                 np.array(list(map(float, line[1:4])), dtype=np.float)
