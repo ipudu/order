@@ -14,7 +14,7 @@ System
     :alt: alternate text
 
 2. Generate the **xyz file** (input for the order package) from the trajectory
-with the atoms necessary to calculate the local structure.
+with the atoms (O or center of mass) necessary to calculate the local structure.
 
 .. note:: This xyz file should include all the water Oxygen atoms and all the
   other atoms that are cosidered as the closest neighbors.
