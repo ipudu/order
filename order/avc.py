@@ -39,8 +39,8 @@ class VoronoiCell(oto.Orientational):
         """find the polyhedron for center molecule"""
         vor = Voronoi(coords)
         #get the vertices
-        #points = [vor.vertices[x] for x in vor.regions[vor.point_region[j]] if x != -1]
-        points = [vor.vertices[x] for x in vor.regions[vor.point_regions[0]]]
+        points = [vor.vertices[x] for x in vor.regions[vor.point_region[j]] if x != -1]
+        #points = [vor.vertices[x] for x in vor.regions[vor.point_region[0]]]
 
         return points
 
