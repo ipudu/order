@@ -40,7 +40,8 @@ class VoronoiCell(oto.Orientational):
         vor = Voronoi(coords)
         #get the vertices
         #points = [vor.vertices[x] for x in vor.regions[vor.point_region[j]] if x != -1]
-        points = vor.regions[vor.point_regions[0]]
+        points = [vor.vertices[x] for x in vor.regions[vor.point_regions[0]]]
+
         return points
 
     def compute_vc(self, points):
