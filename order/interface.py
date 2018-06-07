@@ -23,12 +23,14 @@ class WillardChandler(object):
         
         self.coords = reader.coords
         self.n_frames = reader.n_frames
-        self.n_atoms = reader.n_atoms
-        self.atom_names = reader.atom_names
         self.box, self.box_info = self.get_box()
         
         with open(inputfile, 'r') as f:
             self.input = yaml.load(f)
+
+        self.xi_2 = self.input['xi']
+        self.c = self.input['c']
+        self.mask = self.input['mask']
 
 
     def get_box(self):
@@ -45,38 +47,70 @@ class WillardChandler(object):
             box_info.append([xlo, xhi, ylo, yhi, zlo, zhi])
         return np.array(box), np.array(box_info)
 
-    def single_density(self, r_coord, i_coord, box, xi_2):
+    def single_density(self, r_coord, i_coord, box):
         """density field of single atom in a frame"""
         n, _ = r_coord.shape
         rc = np.zeros([n, 3])
-        rc = r_coord - i_coord
-        
+
         #periodic boundary conditions
+        rc = r_coord - i_coord
         for j in range(3):
             rc[:,j] -= box[j] * np.round(rc[:,j] / box[j])
 
         r_2 = (rc ** 2).sum(axis=1)
+        rho = np.exp( - r_2 / self.xi_2)
 
-        #rho = (2 * np.pi * xi_2) ** (-1.5) * np.exp( - r_2 / xi_2)
-        rho = np.exp( - r_2 / xi_2)
+        return rho.reshape(n, 1)
+    
+    def single_frame_density(self, r_coord, coords, box):
+        """density field of a single frame"""
+        n, _ = r_coord.shape
+        rho = np.zeros([n, 1])
+        
+        for i in self.mask:
+            i_coord = coords[i]
+            rho += self.single_density(r_coord, i_coord, box)
 
         return rho
+
     
-    def single_frame_density(self, r_coord):
-        """density field of a single frame"""
+    def all_density(self, coords, box, box_info):
+        """density field of all frame"""
 
-        
-        
+        rho = []
 
-    def grid(box, mesh):
-        """
-        generate an homogenous grid of a box
-        """
-        x_len = box[1] - box[0]
-        y_len = box[3] - box[2]
-        z_len = box[5] - box[4]
-        box_len = [x_len, y_len, z_len]
-        ngrid = np.array([np.ceil(l / mesh) for l in box_len])
-        spacing = box / ngrid
-        
+        for i in range(self.n_frames):
+            #generate r_coord
+            r_coord = self.grid(box[i], box_info[i])
+            
+            tmp = self.single_frame_density(r_coord, coords[i], box[i])
+            tmp *= (2 * np.pi * self.xi_2) ** (-1.5)
 
+            rho.append(tmp)
+        
+        return rho
+
+    def grid(self, box, box_info, mesh=1):
+        """generate an homogenous grid of a box"""
+        
+        ngrid = np.array([int(np.ceil(l / mesh)) for l in box])
+        #spacing = box / ngrid
+
+        xyz = []
+
+        xlo = [box_info[0], box_info[2], box_info[4]]
+        for i in range(3):
+            xyz.append(np.linspace(xlo[i], box[i] - box[i] / ngrid[i], ngrid[i]))
+        
+        x, y, z = np.meshgrid(xyz[2], xyz[1], xyz[0], indexing='ij')
+
+        grid = np.append(x.reshape(-1, 1), y.reshape(-1, 1), axis=1)
+        grid = np.append(grid, z.reshape(-1, 1), axis=1)
+    
+        return grid
+    
+
+    def generate_interface(self):
+
+        rho  = self.all_density(self.coords, self.box, self.box_info)
+        np.save('rho.npy', rho)

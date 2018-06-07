@@ -19,15 +19,15 @@ def get_parser():
                                                   by geometric order parameters')
     parser.add_argument('input', type=str, nargs='?',help='XYZ trajectory of system')
     parser.add_argument('-t','--task', default='oto', type=str,
-                        help=' type of task: oto,tto,avc (default: oto)')
+                        help=' type of task: oto,tto,avc,interface (default: oto)')
     parser.add_argument('-c','--center', default='O', type=str,
                         help=' type of center atom  (default: O)')
     parser.add_argument('-b','--bins', default=100, type=int,
                         help=' number of bins for the parameter (default: 100)')
     parser.add_argument('-f','--frequency', default=1, type=int,
                         help=' compute the parameter every n frame(s) (default: 1)')                        
-    parser.add_argument('-p','--plot', default='on', type=str,
-                        help='turn on / off of plotting (default: on)')
+    parser.add_argument('-p','--plot', default='off', type=str,
+                        help='turn on / off of plotting (default: off)')
     return parser
 
 def command_line_runner():
@@ -72,6 +72,7 @@ def command_line_runner():
         if 'interface' in args['task']:
             util.output_interface_info('interface')
             tasker =interface.WillardChandler(reader, 'task.in')
+            tasker.generate_interface()
 
     if args['plot'] == 'on':
         for t in args['task'].split(','):
