@@ -29,7 +29,8 @@ class XYZLoader(object):
         self.n_atoms = self._n_atoms()
         self.n_frames = self._n_frames()
         self.box_size = np.empty([self.n_frames, 3], dtype=np.float)
-        self.atom_names = np.chararray([self.n_frames, self.n_atoms, 1], itemsize=3)
+        self.atom_names = np.chararray([self.n_frames, self.n_atoms, 1], 
+                                       itemsize=3, unicode=True)
         self.coords = np.empty([self.n_frames, self.n_atoms, 3], dtype=np.float)
         self.read_all_frames()
 
