@@ -11,7 +11,7 @@
 from __future__ import print_function
 import argparse
 import time
-from . import XYZ, oto, tto, avc, msd, lsi, plot, util
+from . import XYZ, oto, tto, avc, msd, lsi, interface, plot, util
 
 def get_parser():
     parser = argparse.ArgumentParser(description='Order: A tool to characterize the \
@@ -68,6 +68,10 @@ def command_line_runner():
             #TODO:
             tasker.mean_square_displacement(1000, args['frequency'])
             tasker.out_put('MSD')
+        
+        if 'interface' in args['task']:
+            util.output_interface_info('interface')
+            tasker =interface.WillardChandler(reader, 'task.in')
 
     if args['plot'] == 'on':
         for t in args['task'].split(','):

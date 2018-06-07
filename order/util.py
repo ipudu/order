@@ -49,6 +49,12 @@ def output_task(name, freq, bins, center):
     if name is not 'msd':
         print('                     Center atom:\t{:s}\n'.format(center))
 
+def output_interface_info(name):
+    """another method to print task information"""
+    print('\nTask information:\n')
+    if name is 'interface':
+        print('                  Parameter name:\tInstantaneous Liquid Interface')
+
 def output_end(t_start, t_end):
     """print total running time"""
     print('\n' + '-' * 70)

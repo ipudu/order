@@ -20,9 +20,13 @@ class WillardChandler(object):
     Identifies the dividing surface using the Willard-Chandler method
     """
     def __init__(self, reader, inputfile):
+        
         self.coords = reader.coords
         self.n_frames = reader.n_frames
+        self.n_atoms = reader.n_atoms
+        self.atom_names = reader.atom_names
         self.box, self.box_info = self.get_box()
+        
         with open(inputfile, 'r') as f:
             self.input = yaml.load(f)
 
@@ -37,15 +41,15 @@ class WillardChandler(object):
             yhi = self.coords[i][:,1].max()
             zlo = self.coords[i][:,2].min()
             zhi = self.coords[i][:,2].max()
-            box.append([xhi - xlo, yhi - ylo, zhi - zlo])∂
+            box.append([xhi - xlo, yhi - ylo, zhi - zlo])
             box_info.append([xlo, xhi, ylo, yhi, zlo, zhi])
         return np.array(box), np.array(box_info)
 
-    def density(self, r_coord, i_coord, box, xi):
+    def single_density(self, r_coord, i_coord, box, xi_2):
+        """density field of single atom in a frame"""
         n, _ = r_coord.shape
         rc = np.zeros([n, 3])
-        rc = r_coord[i] - i_coord
-        xi_2 = xi ** 2
+        rc = r_coord - i_coord
         
         #periodic boundary conditions
         for j in range(3):
@@ -53,9 +57,16 @@ class WillardChandler(object):
 
         r_2 = (rc ** 2).sum(axis=1)
 
-        rho = (2 * np.pi * xi_2) ** (-1.5) * np.exp( - r_2 / xi_2)
-    
+        #rho = (2 * np.pi * xi_2) ** (-1.5) * np.exp( - r_2 / xi_2)
+        rho = np.exp( - r_2 / xi_2)
+
         return rho
+    
+    def single_frame_density(self, r_coord):
+        """density field of a single frame"""
+
+        
+        
 
     def grid(box, mesh):
         """
