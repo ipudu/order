@@ -51,5 +51,6 @@ setup(
         'progress',
         'scipy',
         'matplotlib',
+        'pyyaml',
     ],
 )
