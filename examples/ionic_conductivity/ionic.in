@@ -1,0 +1,3 @@
+direction: Z
+mask:
+    Na: 1.  #atom: charge
