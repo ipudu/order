@@ -11,7 +11,7 @@
 from __future__ import print_function
 import argparse
 import time
-from . import XYZ, oto, tto, avc, msd, lsi, interface, plot, util
+from . import XYZ, oto, tto, avc, msd, lsi, interface, ionic, plot, util
 
 def get_parser():
     parser = argparse.ArgumentParser(description='Order: A tool to characterize the \
@@ -26,7 +26,7 @@ def get_parser():
                         help=' number of bins for the parameter (default: 100)')
     parser.add_argument('-f','--frequency', default=1, type=int,
                         help=' compute the parameter every n frame(s) (default: 1)')                        
-    parser.add_argument('-p','--plot', default='off', type=str,
+    parser.add_argument('-p','--plot', default='on', type=str,
                         help='turn on / off of plotting (default: off)')
     return parser
 
@@ -70,13 +70,23 @@ def command_line_runner():
             tasker.out_put('MSD')
         
         if 'interface' in args['task']:
-            util.output_interface_info('interface')
-            tasker =interface.WillardChandler(reader, 'task.in')
+            util.output_interface_info()
+            tasker = interface.WillardChandler(reader, 'task.in')
             tasker.generate_interface()
+        
+        if 'ionic' in args['task']:
+            tasker = ionic.IonicConductivity(reader, 'ionic.in')
+            t_unit = util.output_ionic_info(tasker.input)
+            tasker.calculate_conductivity()
+            tasker.out_put()
 
     if args['plot'] == 'on':
         for t in args['task'].split(','):
             ploter = plot.plot(args['input'], t)
+            if t == 'ionic':
+                ploter.plot_ionic(t_unit)
+            else:
+                ploter.plot_distribution()
 
     t_end = time.clock()
     util.output_end(t_start, t_end)
