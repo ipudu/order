@@ -1,3 +1,7 @@
 direction: Z
+efield: 0.1
+#select plane: 10.
 mask:
     Na: 1.  #atom: charge
+delta_t:
+    10: ps  #delta_t: unit
