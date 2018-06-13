@@ -163,7 +163,7 @@ class IonicConductivity(object):
         # method 2 ########################################################
 
         #self.I = self.total_intensity(atom_names, n_frames, n_atoms, 
-                                 box, mask, coords, delta_t)
+        #                         box, mask, coords, delta_t)
 
         #slope, _, _, _, _ = stats.linregress(t, Q)
         #slope = np.average(self.I)
