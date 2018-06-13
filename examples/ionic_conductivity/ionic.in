@@ -1,7 +1,11 @@
-direction: Z
-efield: 0.1
-#select plane: 10.
+#--------------------------------------------------------------------------------
+# Input example for calculating ionic conductivity
+# for the trajectory file, the length unit is assumed as Angstrom.
+#--------------------------------------------------------------------------------
+direction: Z                # X or Y or Z direction
+efield: 0.2e10              # unit: V/m
+select plane: 20.69         # unit: Angstrom (default plane: middle)
 mask:
-    Na: 1.  #atom: charge
-delta_t:
-    10: ps  #delta_t: unit
+    Na: 1.                  # atom: charge
+    S: -1.
+delta_t: 1.                 # unit: ps
