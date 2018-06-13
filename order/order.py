@@ -76,7 +76,7 @@ def command_line_runner():
         
         if 'ionic' in args['task']:
             tasker = ionic.IonicConductivity(reader, 'ionic.in')
-            t_unit = util.output_ionic_info(tasker.input)
+            util.output_ionic_info(tasker.input)
             tasker.calculate_conductivity()
             tasker.out_put()
 
@@ -84,7 +84,7 @@ def command_line_runner():
         for t in args['task'].split(','):
             ploter = plot.plot(args['input'], t)
             if t == 'ionic':
-                ploter.plot_ionic(t_unit)
+                ploter.plot_ionic()
             else:
                 ploter.plot_distribution()
 
