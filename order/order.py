@@ -70,8 +70,8 @@ def command_line_runner():
             tasker.out_put('MSD')
         
         if 'interface' in args['task']:
-            util.output_interface_info()
             tasker = interface.WillardChandler(reader, 'interface.in')
+            util.output_interface_info(tasker.input)
             tasker.generate_interface()
         
         if 'ionic' in args['task']:
@@ -85,7 +85,7 @@ def command_line_runner():
             ploter = plot.plot(args['input'], t)
             if t == 'ionic':
                 ploter.plot_ionic()
-            else:
+            elif t != 'interface':
                 ploter.plot_distribution()
 
     t_end = time.clock()
