@@ -71,7 +71,7 @@ def command_line_runner():
         
         if 'interface' in args['task']:
             util.output_interface_info()
-            tasker = interface.WillardChandler(reader, 'task.in')
+            tasker = interface.WillardChandler(reader, 'interface.in')
             tasker.generate_interface()
         
         if 'ionic' in args['task']:
