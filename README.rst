@@ -57,6 +57,7 @@ Feature Support
 - Orientational Tetrahedral Order
 - Translational Tetrahedral Order
 - Asphericity of the Voronoi Cell
+- Ionic Conductivity
 - and more
 
 Documentation
