@@ -63,13 +63,11 @@ def output_ionic_info(input_info):
     for atom in mask:
         print('                  Ioin name:\t{}\tCharge:\t{}'.format(atom, mask[atom]))
     
-    delta_t = input_info['delta_t']
-    
-    for t in delta_t:
-        t_unit = delta_t[t]
-        print('                    Delta t:\t{}\t Unit:\t{}'.format(t, t_unit))
-    
-    return t_unit
+    t = input_info['delta_t']
+    print('                    Delta t:\t{}\t Unit:\t{}'.format(t, 'ps'))
+
+    E = input_info['efield']
+    print('             External Field:\t{}\t Unit:\t{}'.format(E, 'V/m'))
 
 def output_end(t_start, t_end):
     """print total running time"""
