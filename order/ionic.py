@@ -67,27 +67,35 @@ class IonicConductivity(object):
         I  = np.zeros(n_frames-1)
 
         #progress bar
-        #bar = ChargingBar('Processing', max=n_frames-1, 
-        #                   suffix='%(percent).1f%% - %(eta)ds')
+        bar = ChargingBar('Processing', max=n_frames-1, 
+                           suffix='%(percent).1f%% - %(eta)ds')
 
         for i in range(n_frames-1):
             tmp = 0
+            mid = coords[i][:, self.d].max() + coords[i][:, self.d].min()
+            mid *= 0.5
+
             for j in range(n_atoms):
 
                 atom  = atom_names[i][j]
                 atom  = atom[0]
 
                 if atom in mask:
-                    tmp += mask[atom] * (coords[i+1][j][self.d] - 
-                                         coords[i][j][self.d])
+                    if np.abs(coords[i][j][self.d] - mid) <= box[i][self.d] / 4.:
+                        #print(coords[i+1][j][self.d] - coords[i][j][self.d])
+                        tmp += mask[atom] * (coords[i+1][j][self.d] - 
+                                            coords[i][j][self.d])
             
             #I[i] = 1. / (delta_t * box[i][self.d])
-            I[i] = 1. / (box[i][self.d])
+            I[i] = 1. / (box[i][self.d] / 2.)
             I[i] *= tmp
+            
+            if i !=0:
+               I[i] += I[i-1]
 
-            #bar.update()
+            bar.update()
 
-        #bar.finish()
+        bar.finish()
         return I
 
     def intensity_across_a_fixed_plane(self, atom_names, n_frames, n_atoms,
@@ -121,12 +129,12 @@ class IonicConductivity(object):
                 atom  = atom[0]
 
                 if atom in mask:
-                    if coords[i][j][self.d] > mid and coords[i][j][self.d] < mid + 0.5:
-                        if coords[i-1][j][self.d] < mid and coords[i-1][j][self.d] > mid - 0.5:
+                    if coords[i][j][self.d] > mid and coords[i][j][self.d] < mid + 3:
+                        if coords[i-1][j][self.d] < mid and coords[i-1][j][self.d] > mid - 3:
                             tmp += mask[atom]
 
-                    if coords[i][j][self.d] < mid and coords[i][j][self.d] > mid - 0.5:
-                        if coords[i-1][j][self.d] > mid and coords[i-1][j][self.d] < mid + 0.5:
+                    if coords[i][j][self.d] < mid and coords[i][j][self.d] > mid - 3:
+                        if coords[i-1][j][self.d] > mid and coords[i-1][j][self.d] < mid + 3:
                             tmp -= mask[atom]
                 Q[i] = tmp + Q[i-1]
             bar.next()
@@ -162,10 +170,11 @@ class IonicConductivity(object):
 
         # method 2 ########################################################
 
-        #self.I = self.total_intensity(atom_names, n_frames, n_atoms, 
-        #                         box, mask, coords, delta_t)
+        self.I = self.total_intensity(atom_names, n_frames, n_atoms, 
+                                 box, mask, coords, delta_t)
 
-        #slope, _, _, _, _ = stats.linregress(t, Q)
+        t_ = t[:-1]
+        slope, _, _, _, _ = stats.linregress(t_, self.I)
         #slope = np.average(self.I)
         
         # calculate the conductivity        
@@ -173,9 +182,9 @@ class IonicConductivity(object):
         # I unit: A
         # J unit: A / m ^2
         
-        #J = 1.602176e13 * slope / average_area
+        J = 1.602176e13 * slope / average_area
 
-        #self.sigma[1] = J / self.E
+        self.sigma[1] = J / self.E
         
         # method 3 ########################################################
         self.Q = self.intensity_across_a_fixed_plane(atom_names, n_frames, 
@@ -183,7 +192,7 @@ class IonicConductivity(object):
                                                 mask, coords)
 
         slope, _, _, _, _ = stats.linregress(t,self.Q)
-        print(slope)
+
         # calculate the conductivity        
         # Q =  I * t
         # I unit: A
