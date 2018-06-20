@@ -19,12 +19,12 @@ class plot(object):
         base = os.path.basename(filename)
         self.fprefix = os.path.splitext(base)[0]
         self.taskname = taskname
-        self.data = np.loadtxt(self.fprefix+'_'+self.taskname+'.dat')
         #self.plot_distribution()
     
     def plot_distribution(self):
         """plot distribution"""
 
+        data = np.loadtxt(self.fprefix+'_'+self.taskname+'.dat')
         #plot setting
         #plt.rcParams['font.family'] = 'serif'
         #plt.rcParams['font.serif'] = 'Ubuntu'
@@ -56,16 +56,19 @@ class plot(object):
             plt.xlabel('t')
             plt.ylabel('<r^2>')
 
-        x = self.data[:,0]
-        y = self.data[:,1]
+        x = data[:,0]
+        y = data[:,1]
 
         plt.plot(x,y,linewidth=2.0)
         
         figure = self.fprefix + '_' + self.taskname.upper() + '.pdf'
         plt.savefig(figure, bbox_inches="tight")
     
-    def plot_ionic(self, t_unit):
+    def plot_ionic(self):
         """plot distribution"""
+
+        data1 = np.loadtxt(self.fprefix+'_'+self.taskname+'_ti.dat')
+        data2 = np.loadtxt(self.fprefix+'_'+self.taskname+'_iaafp.dat')
 
         #plot setting
         #plt.rcParams['font.family'] = 'serif'
@@ -82,19 +85,19 @@ class plot(object):
         #clean last plot
         plt.clf()
 
-        plt.xlabel("Simulation time({})".format(t_unit))
-        plt.ylabel("Charge from ions crossing the plane")
+        plt.xlabel("Simulation time(ps)")
+        plt.ylabel("Charge from ions crossing the plane (e)")
 
-        x = self.data[:,0]
-        y = self.data[:,1]
+        x1 = data1[:,0]
+        y1 = data1[:,1]
 
-        slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
+        x2 = data2[:,0]
+        y2 = data2[:,1]
 
-        y_fit = slope * x + intercept
 
-
-        plt.plot(x, y, '.')
-        plt.plot(x, y_fit, '-')
+        plt.plot(x1, y1, label='ti')
+        plt.plot(x2, y2, label='iaafp')
+        plt.legend()
         
         figure = self.fprefix + '_' + self.taskname.upper() + '.pdf'
         plt.savefig(figure, bbox_inches="tight")
