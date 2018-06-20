@@ -49,10 +49,15 @@ def output_task(name, freq, bins, center):
     if name is not 'msd':
         print('                     Center atom:\t{:s}\n'.format(center))
 
-def output_interface_info():
+def output_interface_info(input_info):
     """print interface task information"""
     print('\nTask information:\n')
     print('                  Parameter name:\tInstantaneous Liquid Interface')
+
+    xi = input_info['xi']
+    c = input_info['c']
+    print('                              Xi:\t{}'.format(xi))
+    print('                  Number density:\t{}\n'.format(c))
 
 def output_ionic_info(input_info):
     """print ionic conductivity task information"""
