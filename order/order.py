@@ -54,20 +54,20 @@ def command_line_runner():
             util.output_task('tto', args['frequency'], args['bins'], args['center'])
             tasker = tto.Translational(reader, args['center'], args['bins'])
             tasker.translational_param(args['frequency'])
-            tasker.out_put('TTO', 'Sk')
+            tasker.out_put('tto', 'Sk')
 
         if 'avc' in args['task']:
             util.output_task('avc', args['frequency'], args['bins'], args['center'])
             tasker = avc.VoronoiCell(reader, args['center'], args['bins'])
             tasker.asphericity(args['frequency'])
-            tasker.out_put('AVC', 'Eta')
+            tasker.out_put('avc', 'Eta')
 
         if 'msd' in args['task']:
             util.output_task('msd', args['frequency'], args['bins'], args['center'])
             tasker = msd.meanSquareD(reader, args['center'], args['bins'])
             #TODO:
             tasker.mean_square_displacement(1000, args['frequency'])
-            tasker.out_put('MSD')
+            tasker.out_put('msd')
         
         if 'interface' in args['task']:
             tasker = interface.WillardChandler(reader, 'interface.in')

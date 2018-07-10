@@ -18,6 +18,7 @@ import os
 import six
 from six.moves import range
 
+
 import numpy as np
 from progress.bar import ChargingBar
 from . import oto
@@ -39,7 +40,7 @@ class Translational(oto.Orientational):
             for j in range(self.traj.n_atoms):
                 if self.traj.atom_names[i][j] == self.center:
                     s = 0.0
-                    norms = np.array(map(np.linalg.norm, foo[j]))
+                    norms = np.array([np.linalg.norm(x) for x in foo[j]])
                     sqrt_norms = (norms - norms.mean()) ** 2
                     sum_norms = sqrt_norms.sum() / ( 4 * norms.mean() ** 2)
                     s = 1 - 1 / 3 * sum_norms

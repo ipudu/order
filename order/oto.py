@@ -85,7 +85,7 @@ class Orientational(object):
             bar.next()
         bar.finish()
 
-    def out_put(self, taskname='OTO', param_name='Q'):
+    def out_put(self, taskname='oto', param_name='Q'):
         """output raw data and distribution"""
         raw_data = self.fprefix + '_' + taskname + '_raw.dat'
         with open(raw_data, 'w') as f:

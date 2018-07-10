@@ -38,6 +38,7 @@ class plot(object):
         plt.rcParams['figure.titlesize'] = 12
 
         #clean last plot
+        plt.figure()
         plt.clf()
 
         if self.taskname == 'oto':
@@ -61,7 +62,7 @@ class plot(object):
 
         plt.plot(x,y,linewidth=2.0)
         
-        figure = self.fprefix + '_' + self.taskname.upper() + '.pdf'
+        figure = self.fprefix + '_' + self.taskname + '.pdf'
         plt.savefig(figure, bbox_inches="tight")
     
     def plot_ionic(self):
