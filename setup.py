@@ -18,7 +18,7 @@ def readme():
 
 setup(
     name='iOrder',
-    version='0.0.2',
+    version='0.0.3',
     description='A tool to characterize the local structure of liquid water by geometric order parameters',
     long_description=readme(),
     classifiers=[
