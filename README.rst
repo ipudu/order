@@ -4,9 +4,6 @@
 
 ========================
 
-.. image:: https://img.shields.io/travis/ipudu/order.svg
-    :target: https://travis-ci.org/ipudu/order
-
 .. image:: https://img.shields.io/pypi/v/iorder.svg
     :target: https://pypi.python.org/pypi/iorder
 

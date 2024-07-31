@@ -93,7 +93,7 @@ html_theme_options = {
     'show_powered_by': False,
     'github_user': 'ipudu',
     'github_repo': 'order',
-    'github_banner': True,
+    'github_banner': False,
     'show_related': False,
     'font_family': "'Roboto', Georgia, sans",
     'head_font_family': "'Roboto', Georgia, serif",
